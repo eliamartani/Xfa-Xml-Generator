@@ -26,7 +26,7 @@ using (Xfa xfa = new Xfa(pdfStamper))
 {
 	//code here
 
-	xfa.SaveChanges(); //I'm very important. Call it before PdfStamper has been closed.
+	xfa.SaveChanges(); //It's very important. Call it before PdfStamper has been closed.
 
 	pdfStamper.Close();
 }
