@@ -3,7 +3,15 @@ I was tired of how to deal with XFA through C# and after some hours of work i ma
 
 ## Required
 
-This component use iTextSharp to work. Be sure to reference it.
+- This component use iTextSharp to work. Be sure to reference it;
+- C# 6.0 or you can modify it to use with any previous version of C#. Use your imagination;
+
+## Todo List
+
+- Create a function to return XML as a string;
+- Try to get the field label through XML nodes;
+- Try to get checkbox or group items values through XML nodes;
+- Improve code somehow;
 
 ## How to use
 
