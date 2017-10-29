@@ -53,23 +53,37 @@ namespace Xfa_Xml_Generator
             this[fieldName]?.SetValue(value);
         }
 
+        public void AddField(string fieldName, string value)
+        {
+            Fields.Add(new XfaModel(fieldName: fieldName, value: value));
+        }
+
+        public void AddField(string fieldName, string fieldType, string value)
+        {
+            Fields.Add(new XfaModel(fieldName, fieldType, value));
+        }
+
         public List<XfaModel> GetFields()
         {
-            return (
+            Fields.AddRange((
                 from prop in PdfStamper.AcroFields.Xfa.TemplateSom.Order
                 let propType = PdfStamper.AcroFields.Xfa.TemplateSom.GetFieldType(prop)
                 where !propType.Equals("button")
                 select new XfaModel(prop, propType)
-            ).ToList();
+            ));
+
+            return Fields;
         }
 
         public List<XfaModel> GetAllFields()
         {
-            return (
+            Fields.AddRange((
                 from prop in PdfStamper.AcroFields.Xfa.TemplateSom.Order
                 let propType = PdfStamper.AcroFields.Xfa.TemplateSom.GetFieldType(prop)
                 select new XfaModel(prop, propType)
-            ).ToList();
+            ));
+
+            return Fields;
         }
 
         public void SaveChanges()

@@ -16,14 +16,11 @@ namespace Xfa_Xml_Generator.Helpers
             XmlNode newNode = xmlDocument.CreateNode(XmlNodeType.Element, name, "");
             XmlAttribute newAttribute = xmlDocument.CreateAttribute("index");
 
-            newAttribute.Value = Convert.ToString(index);
+            newAttribute.Value = index;
 
             newNode.Attributes.Append(newAttribute);
 
-            if (!string.IsNullOrEmpty(value))
-            {
-                newNode.InnerText = value;
-            }
+            newNode.InnerText = value;
 
             node.AppendChild(newNode);
         }
