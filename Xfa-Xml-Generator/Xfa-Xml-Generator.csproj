@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core.cs" />
-    <Compile Include="Struct\Regex.cs" />
+    <Compile Include="Struct\XfaRegex.cs" />
     <Compile Include="Helpers\XfaXmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Struct\XfaVisibility.cs" />
