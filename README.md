@@ -19,6 +19,10 @@ Call Xfa after PdfStamper has been called.
 
 Example:
 ```
+using Xfa_Xml_Generator;
+
+...
+
 using (MemoryStream memoryStream = new MemoryStream())
 using (PdfReader pdfReader = new PdfReader(filename))
 using (PdfStamper pdfStamper = new PdfStamper(pdfReader, memoryStream))
