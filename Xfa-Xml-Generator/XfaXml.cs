@@ -10,12 +10,22 @@ namespace Xfa_Xml_Generator
     {
         public XmlReader GenerateXML(List<XfaModel> modelList)
         {
+            return new XmlNodeReader(GenerateXMLDocument(modelList));
+        }
+
+        public string GetXML(List<XfaModel> modelList)
+        {
+            return GenerateXMLDocument(modelList).OuterXml;
+        }
+
+        private XmlDocument GenerateXMLDocument(List<XfaModel> modelList)
+        {
             XmlDocument xmlDocument = new XmlDocument();
 
             foreach (XfaModel model in modelList.OrderBy(c => c.FieldName))
             {
                 string currentNodeStructure = "";
-                string keyWithoutSubform = new Regex(XfaRegex.WITHOUT_SUBFORM).Replace(model.FieldName, "");
+                string keyWithoutSubform = new Regex(XfaRegex.TEXT_WITHOUT_SUBFORM).Replace(model.FieldName, "");
                 string[] nodeLevels = keyWithoutSubform.Split('.');
 
                 for (int i = 0; i < nodeLevels.Length; i++)
@@ -81,19 +91,17 @@ namespace Xfa_Xml_Generator
                 }
             }
 
-            return new XmlNodeReader(xmlDocument);
+            return xmlDocument;
         }
 
         private string GetNodeText(string key)
         {
-            return new Regex(XfaRegex.ONLY_TEXT).Replace(key, "");
+            return new Regex(XfaRegex.TEXT_WITHOUT_BRACKETS).Replace(key, "");
         }
 
         private string GetNodeIndex(string key)
         {
-            string index = key.Substring(key.IndexOf('[') + 1);
-
-            return index.Substring(0, index.IndexOf(']'));
+            return new Regex(XfaRegex.TEXT_BETWEEN_BRACKETS).Match(key).Value;
         }
     }
 }

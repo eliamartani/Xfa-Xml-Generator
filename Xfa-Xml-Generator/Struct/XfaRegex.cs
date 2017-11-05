@@ -2,7 +2,8 @@
 {
     public struct XfaRegex
     {
-        public const string ONLY_TEXT = "\\[(.*?)\\]";
-        public const string WITHOUT_SUBFORM = "#subform\\[(.*?)].";
+        public const string TEXT_WITHOUT_BRACKETS = "\\[(.*?)\\]";
+        public const string TEXT_BETWEEN_BRACKETS = "(?<=\\[)(.*?)(?=\\])";
+        public const string TEXT_WITHOUT_SUBFORM = "#subform\\[(.*?)].";
     }
 }

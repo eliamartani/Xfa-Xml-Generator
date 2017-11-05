@@ -86,6 +86,13 @@ namespace Xfa_Xml_Generator
             return Fields;
         }
 
+        public string GetXML()
+        {
+            var xml = new XfaXml();
+
+            return xml.GetXML(Fields);
+        }
+
         public void SaveChanges()
         {
             var xml = new XfaXml();
