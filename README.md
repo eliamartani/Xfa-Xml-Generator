@@ -1,3 +1,5 @@
+[![Build Status](https://app.bitrise.io/app/5ea99524e3652396/status.svg?token=NcUJkieCZDnSWznXdbyHgQ&branch=master)](https://app.bitrise.io/app/5ea99524e3652396)
+
 # Xfa-Xml-Generator
 
 I was tired of dealing with XFA through C# and after some hours of work i made a XML generator based on XFA Fields structure.
