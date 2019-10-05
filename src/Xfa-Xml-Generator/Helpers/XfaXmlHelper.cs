@@ -28,28 +28,21 @@ namespace Xfa_Xml_Generator.Helpers
         {
             var stringList = new List<string>();
             var currentNode = node;
-            void AddString()
-            {
-                if (addIndex)
-                {
-                    stringList.Add($"{ currentNode.Name }[{ currentNode.Attributes["index"]?.Value ?? "0" }]");
-                }
-                else
-                {
-                    stringList.Add($"{ currentNode.Name }");
-                }
-            }
 
             while (currentNode != null && currentNode.Name != "form1")
             {
-                AddString();
+                stringList.Add(addIndex ?
+                    $"{ currentNode.Name }[{ currentNode.Attributes["index"]?.Value ?? "0" }]" :
+                    $"{ currentNode.Name }");
 
                 currentNode = currentNode.ParentNode;
             }
 
             if (currentNode != null)
             {
-                AddString();
+                stringList.Add(addIndex ?
+                    $"{ currentNode.Name }[{ currentNode.Attributes["index"]?.Value ?? "0" }]" :
+                    $"{ currentNode.Name }");
             }
 
             stringList.Reverse();
@@ -62,16 +55,12 @@ namespace Xfa_Xml_Generator.Helpers
             return string.Concat("//", string.Join("//", stringList.ToArray()));
         }
 
-        public static List<XmlNode> ToList(this XmlNodeList node)
+        public static IEnumerable<XmlNode> ToEnumerable(this XmlNodeList node)
         {
-            var nodeList = new List<XmlNode>();
-
             foreach (XmlNode item in node)
             {
-                nodeList.Add(item);
+                yield return item;
             }
-
-            return nodeList;
         }
     }
 }

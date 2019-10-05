@@ -1,8 +1,14 @@
 language: csharp
 
+os:
+- linux
+
+mono:  
+  - 5.2.0
+
 branches:
   only:
     - master
 
 script:
-  - ./build.sh1
+  - ./build.sh --verbosity Diagnostic

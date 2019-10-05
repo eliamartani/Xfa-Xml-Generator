@@ -24,9 +24,6 @@ namespace Xfa_Xml_Generator
 
                 for (var i = 0; i < nodeLevels.Length; i++)
                 {
-                    List<XmlNode> nodeParents = null;
-                    List<XmlNode> nodeChilds = null;
-
                     var innerText = "";
                     var nodeText = GetNodeText(nodeLevels[i]);
                     var nodeIndex = GetNodeIndex(nodeLevels[i]);
@@ -36,20 +33,17 @@ namespace Xfa_Xml_Generator
                         innerText = model.Value;
                     }
 
-                    if (string.IsNullOrEmpty(currentNodeStructure))
-                    {
-                        nodeParents = xmlDocument.SelectNodes($"./{ nodeText }").ToList();
+                    var isEmptyStructure = string.IsNullOrWhiteSpace(currentNodeStructure);
 
-                        currentNodeStructure = $"./{ nodeText }";
-                    }
-                    else
-                    {
-                        nodeParents = xmlDocument.SelectNodes(currentNodeStructure).ToList();
+                    var nodeParents = isEmptyStructure ?
+                            xmlDocument.SelectNodes($"./{ nodeText }").ToEnumerable().ToList() :
+                            xmlDocument.SelectNodes(currentNodeStructure).ToEnumerable().ToList();
 
-                        currentNodeStructure = string.Concat(currentNodeStructure, "/", nodeText);
-                    }
+                    currentNodeStructure = isEmptyStructure ?
+                        $"./{ nodeText }" :
+                        $"{ currentNodeStructure }/{ nodeText }";
 
-                    nodeChilds = xmlDocument.SelectNodes(currentNodeStructure).ToList();
+                    var nodeChilds = xmlDocument.SelectNodes(currentNodeStructure).ToEnumerable();
 
                     if (nodeParents.Count > 0)
                     {
@@ -60,13 +54,13 @@ namespace Xfa_Xml_Generator
 
                         if (haveSameLevel && (
                                 (nodeParents.Count > 1 && nodeParents.Last().SelectNodes($"./{  nodeText }").Count > 0) ||
-                                (nodeParents.Count <= 1)
+                                (nodeParents.Count == 1)
                             ))
                         {
                             continue;
                         }
 
-                        if (nodeChilds.Count > 0)
+                        if (nodeChilds.Count() > 0)
                         {
                             currentNode = nodeChilds.FirstOrDefault(n => keyWithoutSubform.Contains(n.GetFullPath(true)) && n.Name.Contains(nodeText));
                         }
