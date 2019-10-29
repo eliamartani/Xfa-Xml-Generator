@@ -6,6 +6,8 @@ I was tired of dealing with XFA through C# and after some hours of work i made a
 
 So you can fill the fields correctly and save them.
 
+`updated`: I admit it have a lack of maintenance. I'll do it some day.
+
 ## Required
 
 - This component use iTextSharp. Be sure to reference it too;
